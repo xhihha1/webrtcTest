@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+
+<head>
+  <title>WebRTC</title>
+</head>
+
+<body>
+<script>
+    var BobPC, AlicePC, offer, answer
+
+BobPC = new RTCPeerConnection()
+AlicePC = new RTCPeerConnection()
+
+BobPC.onicecandidate = function (e) {
+  AlicePC.addIceCandidate(e.candidate)
+}
+
+AlicePC.onicecandidate = function (e) {
+  BobPC.addIceCandidate(e.candidate)
+}
+
+function onError(err) {
+  window.alert(err.message)
+}
+
+// 1. Bob 呼叫 RTCPeerConnection.createOffer 建立一個 offer
+BobPC
+  .createOffer({
+    offerToReceiveAudio: false,
+    offerToReceiveVideo: true,
+  }).then(gotLocalDescription)
+
+function gotLocalDescription(description) {
+  offer = description
+  BobPC.setLocalDescription(description)
+  // 2. 通過 Signaling server 將包含 Bob SDP 的offer 發送給 Alice
+  // 3. Alice 收到 offer 後呼叫 setRemoteDescription 設定 Bob 的 SDP
+  AlicePC.setRemoteDescription(offer)
+  // 4. Alice 呼叫 RTCPeerConnection.createAnswer 建立一個 answer
+  AlicePC.createAnswer().then(gotAnswerDescription)
+}
+
+function gotAnswerDescription(description) {
+  AlicePC.setLocalDescription(description)
+  answer = description
+  // 5. 通過 Signaling server 將包含 Alice SDP 的 answer 發送給 Bob
+  // 6. Bob 收到 answer  後呼叫 setRemoteDescription 設定 Alice 的SDP
+  BobPC.setRemoteDescription(answer)
+  console.log('完成 Offer/Answer 的交換')
+  console.log(offer)
+  console.log(answer);
+}
+</script>
+</body>
+
+</html>

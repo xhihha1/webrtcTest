@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+  <head>
+    <title>WebRTC</title>
+  </head>
+  <body>
+    <div>
+      <button id="share">分享畫面</button>
+      <button id="record">錄影</button>
+      <button id="replay" disabled>回放</button>
+      <button id="download" disabled>下載</button>
+    </div>
+    <div>
+      <video width="640" height="360" autoplay playsinline id="player"></video
+      ><video width="640" height="360" autoplay id="replayer"></video>
+    </div>
+    <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+    <script src="main.js"></script>
+  </body>
+</html>
