@@ -4,21 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>viewer</title>
+    <title>1on1 webrtc</title>
   </head>
   <body>
-    <div>查看視訊 不分享</div>
+    <div>分享Canvas內容</div>
     <div>
-      <button id="startBtn">查看</button>
+        <button id="startBtn">Start</button>
+        <button id="leaveBtn">Leave</button>
     </div>
-
     <div>
+      <video muted="false" width="320" autoplay playsinline id="localVideo" ></video>
       <video width="320" autoplay playsinline id="remoteVideo"></video>
     </div>
+    <div>
+      <canvas width="500" height="500" id="myCanvas"></canvas>
+    </div>
 
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.js"></script>
-    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="./static/viewer.js"></script>
+    <script src="./static/rtcCanvas.js"></script>
+    
   </body>
 </html>

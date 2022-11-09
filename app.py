@@ -30,6 +30,10 @@ def rtc3():
 def rtc3s():
     return flask.render_template('rtcShare.html')
 
+@app.route("/rtc3c")
+def rtc3c():
+    return flask.render_template('rtcCanvas.html')
+
 @app.route("/rtc3v")
 def rtc3v():
     return flask.render_template('rtcViewer.html')
