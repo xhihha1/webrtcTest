@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+
+<head>
+  <title>WebRTC</title>
+</head>
+
+<body>
+  <div>
+    <label>音訊輸入裝置:</label>
+    <select id="audioSource"></select>
+  </div>
+
+  <div>
+    <label>音訊輸出裝置:</label>
+    <select id="audioOutput"></select>
+  </div>
+
+  <div>
+    <label>視訊輸入裝置:</label>
+    <select id="videoSource"></select>
+  </div>
+
+  <div>
+    <video autoplay playsinline id="player"></video>
+    <video autoplay id="replayer"></video>
+  </div>
+  <div>
+    <button id="shoot">拍照</button>
+    <button id="record">錄影</button>
+    <button id="replay" disabled>回放</button>
+    <button id="download" disabled>下載</button>
+  </div>
+  <div>
+    <button id="btn1">BTN 1</button>
+  </div>
+  <div id="status"></div>
+
+  <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+
+  <!-- <script src="select.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.js"></script>
+  <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script> -->
+    <script type="text/javascript" charset="utf-8">
+      var socket
+        $(document).ready(function(){
+          var url = 'http://127.0.0.1';
+          var port = '5501';
+          socket = io.connect(url + ':' + port);
+          // var socket = io.connect('https://xxx.xx.xxx:5000', {secure: true});
+          socket.on('status_response', function(msg) {
+              var date = new Date();
+              $('#status').append('<p>status: ' + msg.data + "Time:"+ date+ '</p>');
+          });
+        });
+        $('#btn1').on('click', function(){
+          socket.emit('my event', {data: 'I\'m connected!'});
+        })
+    </script>
+</body>
+
+</html>
